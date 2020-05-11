@@ -1,0 +1,74 @@
+// ################################################## mat table styles #####################################
+.mat-header-row {
+  min-height: fit-content;
+  background-color: #3dc046;
+}
+.mat-row { 
+  min-height: fit-content;
+  align-items: stretch;
+}
+.mat-cell {
+  padding-left: 1px;
+  border-right: 0.3px solid rgba(0, 0, 0, 0.54);
+  min-height: 20px;
+}
+.mat-header-cell {
+  padding-left: 1px;
+  border-right: 0.3px solid rgba(0, 0, 0, 0.54);
+  font-weight: 500;
+  color: white;
+}
+.mat-header-cell:last-of-type {
+  padding-right: 5px;
+  border-right: none;
+}
+.mat-cell:last-of-type {
+  padding-right: 5px;
+  border-right: none;
+}
+.mat-header-cell:first-of-type {
+  padding-left: 4px;
+}
+.mat-cell:first-of-type {
+  padding-left: 4px;
+}
+.mat-row:nth-child(even) {
+  background-color:#eff0f1;
+}
+.mat-row:nth-child(odd) {
+  background-color:white;
+}
+
+// ################################################## mat form  styles #####################################
+// to compress the form fields
+.conf .mat-form-field-infix {
+   border-top: 0.1em solid transparent;
+}
+
+.mat-form-field-infix {
+  border-top: none;
+}
+
+
+// ################################################## mat card styles  #####################################
+.mat-card-actions {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.mat-card {
+  padding: 4px !important;
+}
+
+
+
+
+// ################################################## mat expension panel styles  ##########################
+
+
+
+
+
+// ################################################## mat button styles ####################################
+.mat-raised-button {
+  line-height: 28px !important;
+}

@@ -1,0 +1,21 @@
+<div>
+  <nav mat-tab-nav-bar fxLayout="column" fxLayoutGap="10%" fxLayoutAlign="start">
+    <a mat-tab-link fxFlex="10%"
+        *ngFor="let link of links" 
+        [routerLink]="link.path" 
+        routerLinkActive #rla="routerLinkActive"
+        [routerLinkActiveOptions]="{exact: true}"
+        [active]="rla.isActive"
+        style="height: 32px; font-size: 16px">
+        {{link.text}}
+    </a>
+    <div fxFlex="50%"></div>
+    <div fxFlex="10%" fxLayout="column" fxLayoutAlign="center">
+    </div>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>
+
+
+
