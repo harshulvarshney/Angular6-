@@ -45,11 +45,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MyDataTableComponent } from './my-data-table/my-data-table.component';
+import { MyFormComponent } from './my-form/my-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyDataTableComponent
+    MyDataTableComponent,
+    MyFormComponent
   ],
   imports: [
     AppRoutingModule,

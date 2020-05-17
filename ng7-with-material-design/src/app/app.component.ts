@@ -15,6 +15,10 @@ export class AppComponent implements OnInit {
       { 
         text: 'Data Table', 
         path: 'table' 
+      },
+      { 
+        text: 'Reactive Form', 
+        path: 'form' 
       }
     ];
     console.log('Initializing App Component');

@@ -1,3 +1,142 @@
-<p>
-  my-data-table works!
-</p>
+<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutGap="5px" fxLayoutGap.xs="10px">
+  <div fxFlex></div>
+  <div fxLayoutAlign="flex-start">
+  <div fxLayout="column" fxLayoutGap="10px">
+
+    <div fxLayout="row" style="padding-left: 2px;">
+      <mat-card class="mat-elevation-z4" fxLayout="column" fxFlex="500px">
+        <mat-card-subtitle>Search</mat-card-subtitle>
+        <mat-card-content>
+          <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
+            
+            <!--Row_1-->
+            <div fxLayout="row">
+              <div fxFlex="100px">
+                <mat-form-field>
+                  <input matInput type="text" placeholder="Type Employee Id" formControlName="id" autocomplete="off">
+                  <mat-error *ngIf="formGroup.controls.id.errors?.pattern">
+                    **Only numbers allowed
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+    
+            <div fxLayout="row">
+              <mat-card-actions fxFlex="5%">
+                <button mat-raised-button fxFlex="100px" fxLayoutAlign="center" fxLayoutGap="10%" type="submit" color="primary">Search</button>
+                <button mat-raised-button fxFlex="100px" fxLayoutAlign="center" fxLayoutGap="10%" type="button" (click)="clearFilters()">Clear</button>
+              </mat-card-actions>
+            </div>
+    
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- <div fxFlex></div> -->
+
+  <div fxLayoutAlign="center">
+    <mat-card class="mat-elevation-z8" fxFlex="100%">
+      <div class="loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <mat-table [dataSource]="dataSource" matSort matSortActive="id">
+
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="_id">
+          <mat-header-cell *matHeaderCellDef>
+            <mat-form-field floatLabel="never">
+              <mat-label>Search</mat-label>
+              <input matInput [formControl]="idFilter" autocomplete="off" style="padding-left: 4px;">
+            </mat-form-field>
+          </mat-header-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="_name">
+          <mat-header-cell *matHeaderCellDef>
+            <mat-form-field floatLabel="never">
+              <mat-label>Search</mat-label>
+              <input matInput [formControl]="nameFilter" autocomplete="off">
+            </mat-form-field>
+          </mat-header-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dept">
+          <mat-header-cell *matHeaderCellDef>Department</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.department }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="_dept">
+          <mat-header-cell *matHeaderCellDef style="padding-left: 1px;">
+            <mat-form-field floatLabel="never">
+              <mat-label>Search</mat-label>
+              <input matInput [formControl]="deptFilter" autocomplete="off">
+            </mat-form-field>
+          </mat-header-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="doj">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>DOJ</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.doj }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="_doj">
+          <mat-header-cell *matHeaderCellDef>
+            <mat-form-field floatLabel="never">
+              <mat-label>Search</mat-label>
+              <input matInput [formControl]="dojFilter" autocomplete="off">
+            </mat-form-field>
+          </mat-header-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.city }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="_city">
+          <mat-header-cell *matHeaderCellDef>
+            <mat-form-field floatLabel="never">
+              <mat-label>Search</mat-label>
+              <input matInput [formControl]="cityFilter" autocomplete="off">
+            </mat-form-field>
+          </mat-header-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-header-row *matHeaderRowDef="searchColumns; sticky: true" style="background-color: white"></mat-header-row>
+
+        <mat-row *matRowDef="let row; columns: displayedColumns;" 
+          (click)="selection.toggle(row)" 
+          [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
+          (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
+        </mat-row>
+
+      </mat-table>
+      
+      <mat-toolbar>
+        <mat-toolbar-row fxFlex="100%">
+          <div fxFlex=5%>
+            <button mat-raised-button (click)="exportToCsv()" fxFlex="120px" fxLayoutAlign="center" fxLayoutGap="10%" type="button" color="primary">
+              Download
+            </button>
+          </div>
+          <div fxFlex="55%"></div>
+          <mat-paginator [length]="resultsLength" fxFlex="40%"
+            [pageSize]=pageSize [pageSizeOptions]=getPageSizeOptions()
+            [showFirstLastButtons]="true" 
+            class="mat-paginator-sticky"></mat-paginator>
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+    </mat-card>
+  </div>
+</div>
